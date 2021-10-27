@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitReport", "GitReport.csproj", "{E69CC90E-4804-425C-B038-5E82760FB4C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E69CC90E-4804-425C-B038-5E82760FB4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69CC90E-4804-425C-B038-5E82760FB4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69CC90E-4804-425C-B038-5E82760FB4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69CC90E-4804-425C-B038-5E82760FB4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6B85CBF-8232-42DA-88E1-2BCF9F72EA7F}
+	EndGlobalSection
+EndGlobal
