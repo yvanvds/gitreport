@@ -36,6 +36,11 @@ namespace GitReport
 
         public void Evaluate()
         {
+            Console.WriteLine();
+            Console.WriteLine("#########");
+            Console.WriteLine("# " + Name);
+            Console.WriteLine("#########");
+
             int commits = CommitDays();
             if (commits >= 7) CommitScore = 5;
             else if (commits >= 5) CommitScore = 4;
@@ -47,7 +52,7 @@ namespace GitReport
             int changes = Changes();
             if (changes >= 500) ChangesScore = 5;
             else if (changes >= 300) ChangesScore = 4;
-            else if (changes >= 200) ChangesScore = 3;
+            else if (changes >= 100) ChangesScore = 3;
             else if (changes >= 50) ChangesScore = 2;
             else if (changes >= 20) ChangesScore = 1;
             else ChangesScore = 0;
@@ -88,8 +93,16 @@ namespace GitReport
             foreach(var commit in Commits)
             {
                 //if (commit.Additions < 100)
+                foreach(var file in commit.Git.Files)
                 {
-                    result += commit.Additions;
+                    if (File.Acceptable(file))
+                    {
+                        result += file.Additions;
+                        Console.WriteLine("  => Adding file {0}", file.Filename);
+                    } else
+                    {
+                        
+                    }
                 }
             }
             return result;
