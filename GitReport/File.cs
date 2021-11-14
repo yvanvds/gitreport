@@ -134,6 +134,8 @@ namespace GitReport
             if (parts.Last().Equals("cs", StringComparison.CurrentCultureIgnoreCase)) return true;
             if (parts.Last().Equals("dart", StringComparison.CurrentCultureIgnoreCase)) return true;
             if (parts.Last().Equals("ts", StringComparison.CurrentCultureIgnoreCase)) return true;
+            if (parts.Last().Equals("py", StringComparison.CurrentCultureIgnoreCase)) return true;
+            if (parts.Last().Equals("js", StringComparison.CurrentCultureIgnoreCase)) return true;
             return false; 
         }
     }

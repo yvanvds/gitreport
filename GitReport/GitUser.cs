@@ -10,8 +10,10 @@ namespace GitReport
     class GitUser
     {
         User user;
+        string fullname;
+
         public string Login { get => user.Login; }
-        public string Name { get => user.Name !=  null ? user.Name : Login; }
+        public string Name { get => fullname; }
 
         public List<Commit> Commits { get; set; } = new List<Commit>();
 
@@ -20,16 +22,17 @@ namespace GitReport
 
         public float TotalScore { get; set; }
 
-        public GitUser(User user)
+        public GitUser(User user, string fullname)
         {
             this.user = user;
+            this.fullname = fullname;
         }
 
         public void PrintDetails()
         {
             Console.WriteLine();
             Console.WriteLine("=== User Info ===");
-            Console.WriteLine("Name               : " + user.Name);
+            Console.WriteLine("Name               : " + Name);
             Console.WriteLine("Public repositories: " + user.PublicRepos);
         }
 
@@ -74,11 +77,11 @@ namespace GitReport
 
             foreach(var commit in Commits)
             {
-                //if (commit.Additions > 100)
-                //{
-                //    // probably boilerplate code
-                //    continue;
-                //}
+                if (commit.Additions < 5)
+                {
+                    // commit is too small
+                    continue;
+                }
                 if (!dates.Contains(commit.Date.Date))
                 {
                     dates.Add(commit.Date.Date);

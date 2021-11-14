@@ -12,7 +12,7 @@ namespace GitReport
 
         public static async Task<int> Main(string[] args)
         {
-            DateTime start = DateTime.Parse("15/10/2021");
+            DateTime start = DateTime.Parse("29/10/2021");
 
             if (!Connector.getInstance().Init())
             {
@@ -22,20 +22,21 @@ namespace GitReport
 
 
             // create list of users
-            users.Add(await Connector.getInstance().getUser("ferre0160"));
-            users.Add(await Connector.getInstance().getUser("ThijmThijm22"));
-            users.Add(await Connector.getInstance().getUser("HarmanSingh9630"));
-            users.Add(await Connector.getInstance().getUser("SeppeVanbedts"));
-            users.Add(await Connector.getInstance().getUser("VanWoenselBram"));
-            users.Add(await Connector.getInstance().getUser("chiswex"));
-            users.Add(await Connector.getInstance().getUser("massej6it"));
-            users.Add(await Connector.getInstance().getUser("sonnew"));
-            users.Add(await Connector.getInstance().getUser("StanVDL"));
-            //users.Add(await Connector.getInstance().getUser(""));
-            //users.Add(await Connector.getInstance().getUser(""));
-            //users.Add(await Connector.getInstance().getUser(""));
-            //users.Add(await Connector.getInstance().getUser(""));
-            //users.Add(await Connector.getInstance().getUser(""));
+            users.Add(await Connector.getInstance().getUser("ShadowFlashy", "Jasper Degreef"));
+            users.Add(await Connector.getInstance().getUser("ferre0160", "Ferre Heyde"));
+            users.Add(await Connector.getInstance().getUser("ThijmThijm22", "Thijmen Verstraete"));
+            users.Add(await Connector.getInstance().getUser("HarmanSingh9630", "Harmanjot Singh"));
+            users.Add(await Connector.getInstance().getUser("SeppeVanbedts", "Seppe Vanbedts"));
+            users.Add(await Connector.getInstance().getUser("VanWoenselBram", "Bram Van Woensel"));
+            users.Add(await Connector.getInstance().getUser("chiswex", "Chisse Weckx"));
+            users.Add(await Connector.getInstance().getUser("massej6it", "Jarno Vermassen"));
+            users.Add(await Connector.getInstance().getUser("sonnew", "Wout Versonnen"));
+            users.Add(await Connector.getInstance().getUser("StanVDL", "Stan Vanderlinden"));
+            users.Add(await Connector.getInstance().getUser("spookykat", "Kamiel Brees"));
+            
+            users.Add(await Connector.getInstance().getUser("harry2love", "Harman Sing"));
+            users.Add(await Connector.getInstance().getUser("CasualSD", "Noah Maes"));
+            users.Add(await Connector.getInstance().getUser("Lucidious45", "Yannick Van Den Hoof"));
             //users.Add(await Connector.getInstance().getUser(""));
             //users.Add(await Connector.getInstance().getUser(""));
             //users.Add(await Connector.getInstance().getUser(""));
@@ -60,11 +61,26 @@ namespace GitReport
                         var commits = await Connector.getInstance().getCommits(repo);
                         foreach (var commit in commits)
                         {
+                            Console.WriteLine("* Commit: " + commit.Commit.Message);
+                              
                             // only add commits after start date
                             if (commit.Commit.Author.Date >= start)
                             {
-                                Console.WriteLine("Adding commit for evaluation: {0}", commit.Commit.Message);
-                                await AddCommit(commit.Author.Login, commit.Commit.Author.Date.DateTime, commit.Sha, repo);
+                                string login = FindLoginForCommit(commit);
+                                if (login == null)
+                                {
+                                    Console.WriteLine("  => Discarding: cannot find author");
+                                    Console.WriteLine("  => Assumed Author Name: " + commit.Commit.Author.Name);
+                                    continue;
+                                }
+
+                                Console.WriteLine("  => Adding for evaluation.");
+                                await AddCommit(login, commit.Commit.Author.Date.DateTime, commit.Sha, repo);
+                            } else
+                            {
+                                
+                                Console.WriteLine("  => Discarding commit because it's not recent enough.");
+                                
                             }
                         }
                     } catch(Octokit.ApiException e)
@@ -96,6 +112,25 @@ namespace GitReport
                     return;
                 }
             }
+        }
+
+        private static string FindLoginForCommit(GitHubCommit commit)
+        {
+            
+            if (commit.Author != null)
+            {
+                return commit.Author.Login;
+            } else
+            {
+                foreach(var user in users)
+                {
+                    if (user.Name.Equals(commit.Commit.Author.Name, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return user.Login;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

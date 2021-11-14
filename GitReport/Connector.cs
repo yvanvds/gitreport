@@ -55,10 +55,10 @@ namespace GitReport
             return instance;
         }
 
-        public async Task<GitUser> getUser(string username)
+        public async Task<GitUser> getUser(string username, string fullname)
         {
             var user = await client.User.Get(username);
-            return new GitUser(user);
+            return new GitUser(user, fullname);
         }
 
         public async Task<List<Repository>> getRepositories(GitUser user)
