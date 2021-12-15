@@ -12,7 +12,7 @@ namespace GitReport
 
         public static async Task<int> Main(string[] args)
         {
-            DateTime start = DateTime.Parse("29/10/2021");
+            DateTime start = DateTime.Parse("01/12/2021");
 
             if (!Connector.getInstance().Init())
             {
@@ -37,7 +37,7 @@ namespace GitReport
             users.Add(await Connector.getInstance().getUser("harry2love", "Harman Sing"));
             users.Add(await Connector.getInstance().getUser("CasualSD", "Noah Maes"));
             users.Add(await Connector.getInstance().getUser("Lucidious45", "Yannick Van Den Hoof"));
-            //users.Add(await Connector.getInstance().getUser(""));
+            users.Add(await Connector.getInstance().getUser("Viktor6IT", "Viktor Ons")) ;
             //users.Add(await Connector.getInstance().getUser(""));
             //users.Add(await Connector.getInstance().getUser(""));
 

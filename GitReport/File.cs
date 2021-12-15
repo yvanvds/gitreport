@@ -119,6 +119,9 @@ namespace GitReport
                     } else if (path[i+1].Equals("Scripts", StringComparison.CurrentCultureIgnoreCase))
                     {
                         return false;
+                    } else if (path[i+1].Equals("My Assets", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return false;
                     } else
                     {
                         return true;
@@ -133,9 +136,18 @@ namespace GitReport
             var parts = file.Filename.Split('.');
             if (parts.Last().Equals("cs", StringComparison.CurrentCultureIgnoreCase)) return true;
             if (parts.Last().Equals("dart", StringComparison.CurrentCultureIgnoreCase)) return true;
-            if (parts.Last().Equals("ts", StringComparison.CurrentCultureIgnoreCase)) return true;
+            
+            if (parts.Last().Equals("ts", StringComparison.CurrentCultureIgnoreCase))
+            {
+                if (parts.Length < 3) return true;
+                if (parts[parts.Length - 2].Equals("spec")) return false;
+                return true;
+            }
+
             if (parts.Last().Equals("py", StringComparison.CurrentCultureIgnoreCase)) return true;
             if (parts.Last().Equals("js", StringComparison.CurrentCultureIgnoreCase)) return true;
+            if (parts.Last().Equals("css", StringComparison.CurrentCultureIgnoreCase)) return true;
+            if (parts.Last().Equals("html", StringComparison.CurrentCultureIgnoreCase)) return true;
             return false; 
         }
     }
